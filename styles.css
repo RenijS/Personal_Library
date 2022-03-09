@@ -16,11 +16,16 @@ body {
   padding: 0.5rem 1rem;
 }
 
-.addSection input {
+.addSection .bookInput {
   height: 1.5rem;
   border-radius: 8px;
   border: 1px gray solid;
   margin-bottom: 1rem;
+}
+.bookInput:focus {
+  outline: none !important;
+  border: 1px solid cadetblue;
+  box-shadow: 0 0 10px #719ece;
 }
 
 .card {
@@ -30,9 +35,26 @@ body {
 }
 
 .displaySection {
-  background-color: violet;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(5rem, 10rem));
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 9.5rem));
   gap: 1rem;
   justify-content: center;
+}
+
+button {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+}
+
+.subText {
+  color: gray;
+  font-size: smaller;
+}
+
+.error {
+  box-shadow: red 0px 0px 0px 1px inset,
+    rgba(252, 19, 19, 0.534) 0px 0px 4px 1px;
+  border: 1px red solid;
 }
