@@ -9,25 +9,41 @@
   </head>
   <body>
     <section class="addSection">
-      <h3>Add Book</h3>
+      <div class="addTitle">
+        <h3>Add Book</h3>
+        <img
+          src="img/minus-thick.png"
+          alt=""
+          style="text-align: right"
+          id="minusImg"
+        />
+      </div>
       <label for="title" class="subText">Title</label>
       <input type="text" name="title" id="title" class="bookInput" required />
       <label for="pages" class="subText">Pages</label>
       <input type="text" name="pages" id="pages" class="bookInput" required />
       <label for="author" class="subText">Author</label>
       <input type="text" name="author" id="author" class="bookInput" required />
-      <label for="haveRead" class="subText">have Read?</label>
-      <input
-        type="text"
-        name="haveRead"
-        id="haveRead"
-        class="bookInput"
-        required
-      />
+      <div class="haveRead-container" style="margin-bottom: 1.5rem">
+        <label for="haveRead" class="subText">have Read?</label>
+        <input
+          type="checkbox"
+          value="None"
+          name="haveRead"
+          id="haveRead"
+          checked
+        />
+      </div>
       <button class="addBtn">Add</button>
     </section>
-    <div style="text-align: center">
+    <div style="text-align: center" class="main">
       <h2>Personal Mini Library</h2>
+      <button style="border: 2px #07393c solid" class="addBookBtn">
+        Add Book
+      </button>
+      <button style="border: 2px #07393c solid" class="editBookBtn">
+        Edit Book
+      </button>
       <section class="displaySection"></section>
     </div>
 

@@ -5,6 +5,11 @@ const pages = document.querySelector("#pages");
 const author = document.querySelector("#author");
 const haveRead = document.querySelector("#haveRead");
 const bookInput = document.querySelectorAll(".bookInput");
+const minusImg = document.querySelector("#minusImg");
+const body = document.querySelector("body");
+const addSection = document.querySelector(".addSection");
+const mainClass = document.querySelector(".main");
+const addBookBtn = document.querySelector(".addBookBtn");
 
 let book = function (title, author, pages, haveRead) {
   this.title = title;
@@ -65,6 +70,13 @@ function displayAllBooks(bookLibrary) {
   }
 }
 
+function checkChecker(check) {
+  if (check == true) {
+    return "Yes";
+  }
+  return "No";
+}
+
 displayAllBooks(bookLibrary);
 
 addBtn.addEventListener("click", function () {
@@ -79,7 +91,12 @@ addBtn.addEventListener("click", function () {
     pages.classList.add("error");
   } else {
     addBookToLibrary(
-      new book(title.value, author.value, pages.value, haveRead.value)
+      new book(
+        title.value,
+        author.value,
+        pages.value,
+        checkChecker(haveRead.checked)
+      )
     );
   }
 });
@@ -90,4 +107,18 @@ bookInput.forEach((element) => {
       element.classList.remove("error");
     }
   });
+});
+
+minusImg.addEventListener("click", () => {
+  addSection.classList.add("minusClickedVisibility");
+  mainClass.classList.add("minusClickedMain");
+  body.classList.add("minusClicked");
+  addBookBtn.classList.remove("addBookBtn");
+});
+
+addBookBtn.addEventListener("click", () => {
+  addSection.classList.remove("minusClickedVisibility");
+  mainClass.classList.remove("minusClickedMain");
+  body.classList.remove("minusClicked");
+  addBookBtn.classList.add("addBookBtn");
 });
