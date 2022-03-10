@@ -57,14 +57,30 @@ function displayAllBooks(bookLibrary) {
       let book = bookLibrary[i];
       const card = document.createElement("div");
       card.classList.add("card");
-      console.log(book);
       for (let key in book) {
-        console.log(key);
-        const info = document.createElement("p");
+        const info = document.createElement("span");
         info.setAttribute("id", key);
-        info.textContent = book[key];
+        info.textContent = `${book[key]}`;
         card.appendChild(info);
       }
+      const imgOptions = document.createElement("div");
+      imgOptions.classList.add("imgOptions");
+      const editBtn = document.createElement("img");
+      editBtn.src = "img/pencil.png";
+      editBtn.classList.add("edit");
+      const deleteBtn = document.createElement("img");
+      deleteBtn.src = "img/delete.png";
+      deleteBtn.classList.add("delete");
+      //responsive button with image change
+      deleteBtn.addEventListener("mouseover", () => {
+        deleteBtn.src = "img/delete-empty.png";
+      });
+      deleteBtn.addEventListener("mouseleave", () => {
+        deleteBtn.src = "img/delete.png";
+      });
+      imgOptions.appendChild(editBtn);
+      imgOptions.appendChild(deleteBtn);
+      card.appendChild(imgOptions);
       displaySection.appendChild(card);
     }
   }
