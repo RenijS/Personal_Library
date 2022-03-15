@@ -11,7 +11,8 @@ const addSection = document.querySelector(".addSection");
 const mainClass = document.querySelector(".main");
 const addBookBtn = document.querySelector(".addBookBtn");
 
-let book = function (title, author, pages, haveRead) {
+let book = function (id, title, author, pages, haveRead) {
+  this.id = id;
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -30,9 +31,34 @@ bookLibrary.push(
   new book("The Girl on the Train", "Paula Hawkins", "395", true)
 );
 
+function getItems() {
+  db.collection("books-info").onSnapshot((snapshot) => {
+    let items = [];
+    snapshot.docs.forEach((doc) => {
+      items.push(
+        new book(
+          doc.id,
+          doc.data().title,
+          doc.data().author,
+          doc.data().pages,
+          doc.data().haveRead
+        )
+      );
+    });
+    displayAllBooks(items);
+  });
+}
+
 function addBookToLibrary(book) {
   bookLibrary.push(book);
-  displayAllBooks(bookLibrary);
+  db.collection("books-info").add({
+    title: book.title,
+    author: book["author"],
+    pages: book.pages,
+    haveRead: book.haveRead,
+  });
+  getItems();
+  //displayAllBooks(bookLibrary);
   /*
   for (const items in book) {
     const card = document.createElement("div");
@@ -50,21 +76,24 @@ function addBookToLibrary(book) {
   */
 }
 
-function displayAllBooks(bookLibrary) {
+function displayAllBooks(bookArray) {
   displaySection.innerHTML = "";
-  if (bookLibrary.length != 0) {
-    for (let i = 0; i < bookLibrary.length; i++) {
-      let book = bookLibrary[i];
+  if (bookArray.length != 0) {
+    for (let i = 0; i < bookArray.length; i++) {
+      let book = bookArray[i];
       const card = document.createElement("div");
       card.classList.add("card");
       for (let key in book) {
         const info = document.createElement("span");
         info.setAttribute("id", key);
         info.textContent = `${book[key]}`;
-        card.appendChild(info);
+        if (key !== "id") {
+          card.appendChild(info);
+        }
       }
       const imgOptions = document.createElement("div");
       imgOptions.classList.add("imgOptions");
+      imgOptions.classList.add("hidden");
       const editBtn = document.createElement("img");
       editBtn.src = "img/pencil.png";
       editBtn.classList.add("edit");
@@ -72,6 +101,12 @@ function displayAllBooks(bookLibrary) {
       deleteBtn.src = "img/delete.png";
       deleteBtn.classList.add("delete");
       //responsive button with image change
+      editBtn.addEventListener("mouseover", () => {
+        editBtn.src = "img/lead-pencil.png";
+      });
+      editBtn.addEventListener("mouseleave", () => {
+        editBtn.src = "img/pencil.png";
+      });
       deleteBtn.addEventListener("mouseover", () => {
         deleteBtn.src = "img/delete-empty.png";
       });
@@ -92,8 +127,8 @@ function checkChecker(check) {
   }
   return "No";
 }
-
-displayAllBooks(bookLibrary);
+getItems();
+//displayAllBooks(bookLibrary);
 
 addBtn.addEventListener("click", function () {
   if (title.value == "") {
