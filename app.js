@@ -9,8 +9,10 @@ const bookInput = document.querySelectorAll(".bookInput");
 const minusImg = document.querySelector("#minusImg");
 const body = document.querySelector("body");
 const addSection = document.querySelector(".addSection");
+const editSection = document.querySelector(".editSection");
 const mainClass = document.querySelector(".main");
 const addBookBtn = document.querySelector(".addBookBtn");
+const editMinusImg = document.querySelector("#editMinusImg");
 
 let book = function (id, title, author, pages, haveRead) {
   this.id = id;
@@ -106,7 +108,11 @@ function displayAllBooks(bookArray) {
       deleteBtn.classList.add("delete");
       deleteBtn.setAttribute("data-info", card.dataset.info);
       editBtn.addEventListener("click", () => {
-        console.log(editBtn.dataset.info);
+        editSection.classList.remove("displayNone");
+        addSection.classList.add("displayNone");
+        body.classList.remove("minusClicked");
+        body.classList.add("editClicked");
+        addBookBtn.classList.remove("displayNone");
         editData(editBtn.dataset.info);
       });
       //responsive button with image change
@@ -180,12 +186,21 @@ minusImg.addEventListener("click", () => {
   addSection.classList.add("minusClickedVisibility");
   mainClass.classList.add("minusClickedMain");
   body.classList.add("minusClicked");
-  addBookBtn.classList.remove("addBookBtn");
+  addBookBtn.classList.remove("displayNone");
 });
 
 addBookBtn.addEventListener("click", () => {
   addSection.classList.remove("minusClickedVisibility");
+  addSection.classList.remove("displayNone");
   mainClass.classList.remove("minusClickedMain");
   body.classList.remove("minusClicked");
-  addBookBtn.classList.add("addBookBtn");
+  body.classList.remove("editClicked");
+  addBookBtn.classList.add("displayNone");
+});
+
+editMinusImg.addEventListener("click", () => {
+  body.classList.remove("editClicked");
+  editSection.classList.add("displayNone");
+  mainClass.classList.add("minusClickedMain");
+  body.classList.add("minusClicked");
 });

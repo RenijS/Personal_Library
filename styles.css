@@ -8,7 +8,16 @@ body {
 body {
   background-color: #2c666e;
   display: grid;
-  grid-template-columns: 20% 1fr 20%;
+  grid-template-columns: 20% 1fr;
+}
+
+.addSection,
+.editSection {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  padding: 0.5rem 1rem;
+  box-shadow: 2px 0px 5px #07393c;
 }
 
 .minusClicked {
@@ -28,13 +37,16 @@ body {
   display: inline;
 }
 
-.addSection,
-.editSection {
-  display: flex;
-  flex-direction: column;
-  background-color: #f5f5f5;
-  padding: 0.5rem 1rem;
-  box-shadow: 2px 0px 5px #07393c;
+.displayNone {
+  display: none;
+}
+
+.editClicked {
+  grid-template-columns: 1fr 20%;
+}
+
+.addClicked {
+  grid-template-columns: 20% 1fr;
 }
 
 .addTitle,
@@ -107,10 +119,6 @@ button {
 .editBtn {
   background-color: #2c666e;
   color: white;
-}
-
-.addBookBtn {
-  display: none;
 }
 
 button:hover {
