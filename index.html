@@ -19,7 +19,7 @@
         <h3>Add Book</h3>
         <img
           src="img/minus-thick.png"
-          alt=""
+          alt="minus img"
           style="text-align: right"
           id="minusImg"
         />
@@ -49,6 +49,56 @@
       </button>
       <section class="displaySection"></section>
     </div>
+    <section class="editSection">
+      <div class="editTitle">
+        <h3>Edit Book</h3>
+        <img
+          src="img/minus-thick.png"
+          alt="minus img"
+          style="text-align: right"
+          id="editMinusImg"
+        />
+      </div>
+      <span
+        class="idText"
+        style="font-size: x-small; margin-bottom: 0.5rem"
+      ></span>
+      <label for="editTitle" class="subText">Title</label>
+      <input
+        type="text"
+        name="editTitle"
+        id="editTitle"
+        class="bookInput editInput"
+        required
+      />
+      <label for="editPages" class="subText">Pages</label>
+      <input
+        type="text"
+        name="editPages"
+        id="editPages"
+        class="bookInput editInput"
+        required
+      />
+      <label for="editAuthor" class="subText">Author</label>
+      <input
+        type="text"
+        name="editAuthor"
+        id="editAuthor"
+        class="bookInput editInput"
+        required
+      />
+      <div class="haveRead-container" style="margin-bottom: 1.5rem">
+        <label for="editHaveRead" class="subText">have Read?</label>
+        <input
+          type="checkbox"
+          value="None"
+          name="editHaveRead"
+          id="editHaveRead"
+          checked
+        />
+      </div>
+      <button class="editBtn">Edit</button>
+    </section>
 
     <!--Firebase-->
 

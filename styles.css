@@ -8,7 +8,7 @@ body {
 body {
   background-color: #2c666e;
   display: grid;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: 20% 1fr 20%;
 }
 
 .minusClicked {
@@ -28,7 +28,8 @@ body {
   display: inline;
 }
 
-.addSection {
+.addSection,
+.editSection {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
@@ -36,12 +37,13 @@ body {
   box-shadow: 2px 0px 5px #07393c;
 }
 
-.addTitle {
+.addTitle,
+.editTitle {
   display: grid;
   grid-template-columns: 1fr 15%;
 }
 
-.addSection .bookInput {
+.bookInput {
   height: 1.5rem;
   border-radius: 8px;
   border: 1px gray solid;
@@ -101,7 +103,8 @@ button {
   align-items: center;
 }
 
-.addBtn {
+.addBtn,
+.editBtn {
   background-color: #2c666e;
   color: white;
 }

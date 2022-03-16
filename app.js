@@ -1,5 +1,6 @@
 const displaySection = document.querySelector(".displaySection");
 const addBtn = document.querySelector(".addBtn");
+const editBtn = document.querySelector(".editBtn");
 const title = document.querySelector("#title");
 const pages = document.querySelector("#pages");
 const author = document.querySelector("#author");
@@ -89,6 +90,8 @@ function displayAllBooks(bookArray) {
         info.textContent = `${book[key]}`;
         if (key !== "id") {
           card.appendChild(info);
+        } else {
+          card.setAttribute("data-info", book[key]);
         }
       }
       const imgOptions = document.createElement("div");
@@ -97,9 +100,15 @@ function displayAllBooks(bookArray) {
       const editBtn = document.createElement("img");
       editBtn.src = "img/pencil.png";
       editBtn.classList.add("edit");
+      editBtn.setAttribute("data-info", card.dataset.info);
       const deleteBtn = document.createElement("img");
       deleteBtn.src = "img/delete.png";
       deleteBtn.classList.add("delete");
+      deleteBtn.setAttribute("data-info", card.dataset.info);
+      editBtn.addEventListener("click", () => {
+        console.log(editBtn.dataset.info);
+        editData(editBtn.dataset.info);
+      });
       //responsive button with image change
       editBtn.addEventListener("mouseover", () => {
         editBtn.src = "img/lead-pencil.png";
@@ -130,6 +139,11 @@ function checkChecker(check) {
 getItems();
 //displayAllBooks(bookLibrary);
 
+function editData(bookId) {
+  const id = document.querySelector(".idText");
+  id.textContent = `Id: ${bookId}`;
+}
+
 addBtn.addEventListener("click", function () {
   if (title.value == "") {
     title.placeholder = "Please enter title";
@@ -151,6 +165,8 @@ addBtn.addEventListener("click", function () {
     );
   }
 });
+
+editBtn.addEventListener("click", function () {});
 
 bookInput.forEach((element) => {
   element.addEventListener("input", () => {
