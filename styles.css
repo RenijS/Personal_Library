@@ -127,7 +127,8 @@ button:hover {
 }
 
 #minusImg:hover,
-#haveRead:hover {
+#haveRead:hover,
+#editMinusImg {
   cursor: pointer;
 }
 

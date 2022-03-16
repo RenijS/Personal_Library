@@ -13,6 +13,11 @@ const editSection = document.querySelector(".editSection");
 const mainClass = document.querySelector(".main");
 const addBookBtn = document.querySelector(".addBookBtn");
 const editMinusImg = document.querySelector("#editMinusImg");
+//edit inputs
+const editTitle = document.querySelector("#editTitle");
+const editAuthor = document.querySelector("#editAuthor");
+const editPages = document.querySelector("#editPages");
+const editHaveRead = document.querySelector("#editHaveRead");
 
 let book = function (id, title, author, pages, haveRead) {
   this.id = id;
@@ -148,6 +153,20 @@ getItems();
 function editData(bookId) {
   const id = document.querySelector(".idText");
   id.textContent = `Id: ${bookId}`;
+  let item = db.collection("books-info").doc(bookId);
+  item.get().then(function (doc) {
+    if (doc.exists) {
+      console.log(doc.data());
+      editTitle.placeholder = doc.data().title;
+      editPages.placeholder = doc.data().pages;
+      editAuthor.placeholder = doc.data().author;
+      if (doc.data().haveRead == "Yes") {
+        editHaveRead.checked = true;
+      } else {
+        editHaveRead.checked = false;
+      }
+    }
+  });
 }
 
 addBtn.addEventListener("click", function () {
