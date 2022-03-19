@@ -150,9 +150,9 @@ function checkChecker(check) {
 getItems();
 //displayAllBooks(bookLibrary);
 
+const id = document.querySelector(".idText");
 function editData(bookId) {
-  const id = document.querySelector(".idText");
-  id.textContent = `Id: ${bookId}`;
+  id.textContent = `${bookId}`;
   let item = db.collection("books-info").doc(bookId);
   item.get().then(function (doc) {
     if (doc.exists) {
@@ -168,6 +168,61 @@ function editData(bookId) {
     }
   });
 }
+
+editBtn.addEventListener("click", function () {
+  let item = db.collection("books-info").doc(id.textContent);
+  item.get().then(function (doc) {
+    if (doc.exists) {
+      if (
+        editTitle.value != "" &&
+        editAuthor.value != "" &&
+        editPages.value != ""
+      ) {
+        if (doc.data().haveRead != checkChecker(editHaveRead.checked)) {
+          item.update({
+            title: editTitle.value,
+            author: editAuthor.value,
+            pages: editPages.value,
+            haveRead: checkChecker(editHaveRead.checked),
+          });
+          console.log("Updated All");
+        } else {
+          item.update({
+            title: editTitle.value,
+            author: editAuthor.value,
+            pages: editPages.value,
+          });
+          console.log("Updated without haveRead");
+        }
+      } else {
+        if (editTitle.value != "") {
+          item.update({
+            title: editTitle.value,
+          });
+          console.log("Update title");
+        }
+        if (editAuthor.value != "") {
+          item.update({
+            author: editAuthor.value,
+          });
+          console.log("Update author");
+        }
+        if (editPages.value != "") {
+          item.update({
+            pages: editPages.value,
+          });
+          console.log("Update pages");
+        }
+        if (doc.data().haveRead != checkChecker(editHaveRead.checked)) {
+          item.update({
+            haveRead: checkChecker(editHaveRead.checked),
+          });
+          console.log("Update haveRead");
+        }
+      }
+    }
+  });
+});
 
 addBtn.addEventListener("click", function () {
   if (title.value == "") {
@@ -190,8 +245,6 @@ addBtn.addEventListener("click", function () {
     );
   }
 });
-
-editBtn.addEventListener("click", function () {});
 
 bookInput.forEach((element) => {
   element.addEventListener("input", () => {
