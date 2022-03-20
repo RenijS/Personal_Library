@@ -27,18 +27,6 @@ let book = function (id, title, author, pages, haveRead) {
   this.haveRead = haveRead;
 };
 
-let bookLibrary = [];
-bookLibrary.push(
-  new book("The Diary of a Young Girl", "Anne Frank", "337", true),
-  new book("The Girl on the Train", "Paula Hawkins", "395", true),
-  new book("The Diary of a Young Girl", "Anne Frank", "337", true),
-  new book("The Girl on the Train", "Paula Hawkins", "395", true),
-  new book("The Diary of a Young Girl", "Anne Frank", "337", true),
-  new book("The Girl on the Train", "Paula Hawkins", "395", true),
-  new book("The Diary of a Young Girl", "Anne Frank", "337", true),
-  new book("The Girl on the Train", "Paula Hawkins", "395", true)
-);
-
 function getItems() {
   db.collection("books-info").onSnapshot((snapshot) => {
     let items = [];
@@ -58,7 +46,6 @@ function getItems() {
 }
 
 function addBookToLibrary(book) {
-  bookLibrary.push(book);
   db.collection("books-info").add({
     title: book.title,
     author: book["author"],
@@ -66,22 +53,6 @@ function addBookToLibrary(book) {
     haveRead: book.haveRead,
   });
   getItems();
-  //displayAllBooks(bookLibrary);
-  /*
-  for (const items in book) {
-    const card = document.createElement("div");
-    card.classList.add("card");
-    
-    const info = document.createElement("p");
-    info.value = `book.${items}`;
-    console.log(info.value);
-    card.appendChild(info);
-    displaySection.appendChild(card);
-    displaySection.value = `book.${items}`;
-    displaySection.appendChild(card);
-  }
-  console.log(bookLibrary);
-  */
 }
 
 function displayAllBooks(bookArray) {
@@ -120,6 +91,9 @@ function displayAllBooks(bookArray) {
         addBookBtn.classList.remove("displayNone");
         editData(editBtn.dataset.info);
       });
+      deleteBtn.addEventListener("click", () => {
+        Alert.render(deleteBtn.dataset.info);
+      });
       //responsive button with image change
       editBtn.addEventListener("mouseover", () => {
         editBtn.src = "img/lead-pencil.png";
@@ -147,6 +121,44 @@ function checkChecker(check) {
   }
   return "No";
 }
+
+function customAlert() {
+  this.bookId;
+  this.render = function (bookId) {
+    this.bookId = bookId;
+    const dialogoverlay = document.querySelector("#dialogoverlay");
+    const dialogbox = document.querySelector("#dialogbox");
+    dialogoverlay.style.display = "block";
+    dialogbox.style.display = "block";
+    dialogbox.style.left = "25%";
+    dialogbox.style.top = "25%";
+    document.querySelector("#dialogboxhead").innerHTML = "DELETE CONFIRMATION";
+    document.querySelector("#dialogboxbody").innerHTML =
+      "Are you sure you want to delete it?";
+    document.querySelector("#dialogboxfoot").innerHTML =
+      '<button onClick = "Alert.ok()">Ok</button> <button onClick = "Alert.cancel()">Cancel</button>';
+  };
+
+  this.ok = function () {
+    dialogoverlay.style.display = "none";
+    dialogbox.style.display = "none";
+    db.collection("books-info")
+      .doc(this.bookId)
+      .delete()
+      .then(() => {
+        console.log(`Document successfully deleted! ${this.bookId}`);
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
+  this.cancel = function () {
+    dialogoverlay.style.display = "none";
+    dialogbox.style.display = "none";
+  };
+}
+let Alert = new customAlert();
 getItems();
 //displayAllBooks(bookLibrary);
 
