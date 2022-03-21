@@ -185,3 +185,25 @@ button:hover {
   color: white;
   margin-right: 0.5rem;
 }
+
+@media (max-width: 655px) {
+  body {
+    grid-template: auto 1fr / auto;
+  }
+  .editClicked {
+    grid-template: 1fr auto / auto;
+    grid-row-start: 1;
+    grid-row-end: -1;
+  }
+  .editSection {
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+  .addClicked {
+    grid-template: auto 1fr / auto;
+  }
+  .minusClickedMain {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+}

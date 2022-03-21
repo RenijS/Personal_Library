@@ -280,6 +280,7 @@ addBookBtn.addEventListener("click", () => {
   body.classList.remove("minusClicked");
   body.classList.remove("editClicked");
   addBookBtn.classList.add("displayNone");
+  editSection.classList.add("displayNone");
 });
 
 editMinusImg.addEventListener("click", () => {
@@ -287,4 +288,5 @@ editMinusImg.addEventListener("click", () => {
   editSection.classList.add("displayNone");
   mainClass.classList.add("minusClickedMain");
   body.classList.add("minusClicked");
+  addSection.classList.add("displayNone");
 });
